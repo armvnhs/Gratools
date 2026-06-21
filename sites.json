@@ -1,0 +1,135 @@
+[
+  {
+    "name": "Remove.bg",
+    "url": "https://www.remove.bg",
+    "description": "حذف خودکار پس‌زمینه تصاویر با هوش مصنوعی در چند ثانیه",
+    "category": "graphic",
+    "popular": true
+  },
+  {
+    "name": "Photopea",
+    "url": "https://www.photopea.com",
+    "description": "ویرایشگر حرفه‌ای تصویر در مرورگر، جایگزین رایگان فتوشاپ",
+    "category": "graphic",
+    "popular": true
+  },
+  {
+    "name": "Canva",
+    "url": "https://www.canva.com",
+    "description": "طراحی گرافیک، پوستر و شبکه‌های اجتماعی با قالب‌های آماده",
+    "category": "graphic",
+    "popular": true
+  },
+  {
+    "name": "Coolors",
+    "url": "https://coolors.co",
+    "description": "تولید و کشف پالت‌های رنگی هماهنگ برای پروژه‌های طراحی",
+    "category": "graphic",
+    "popular": true
+  },
+  {
+    "name": "TinyPNG",
+    "url": "https://tinypng.com",
+    "description": "فشرده‌سازی هوشمند تصاویر PNG و JPEG بدون افت کیفیت محسوس",
+    "category": "graphic",
+    "popular": false
+  },
+  {
+    "name": "Figma",
+    "url": "https://www.figma.com",
+    "description": "ابزار طراحی رابط کاربری و همکاری تیمی به‌صورت آنلاین",
+    "category": "graphic",
+    "popular": true
+  },
+  {
+    "name": "Squoosh",
+    "url": "https://squoosh.app",
+    "description": "فشرده‌سازی و تبدیل فرمت تصاویر با مقایسه زنده کیفیت",
+    "category": "graphic",
+    "popular": false
+  },
+  {
+    "name": "Favicon.io",
+    "url": "https://favicon.io",
+    "description": "ساخت فاوآیکون از متن، تصویر یا ایموجی برای وب‌سایت",
+    "category": "graphic",
+    "popular": false
+  },
+  {
+    "name": "Excalidraw",
+    "url": "https://excalidraw.com",
+    "description": "ابزار طراحی نمودار و وایرفریم دستی با ظاهری ساده و مینیمال",
+    "category": "graphic",
+    "popular": false
+  },
+  {
+    "name": "Haikei",
+    "url": "https://app.haikei.app",
+    "description": "تولید پس‌زمینه‌های موجی و اشکال SVG برای طراحی وب",
+    "category": "graphic",
+    "popular": false
+  },
+  {
+    "name": "Fontjoy",
+    "url": "https://fontjoy.com",
+    "description": "پیشنهاد ترکیب فونت با کمک هوش مصنوعی برای پروژه‌های طراحی",
+    "category": "graphic",
+    "popular": false
+  },
+  {
+    "name": "Shadows Brumm",
+    "url": "https://shadows.brumm.af",
+    "description": "تولید کد سایه‌های چندلایه و نرم برای CSS",
+    "category": "graphic",
+    "popular": false
+  },
+  {
+    "name": "JSON Formatter",
+    "url": "https://jsonformatter.org",
+    "description": "فرمت‌بندی، اعتبارسنجی و زیباسازی داده‌های JSON",
+    "category": "dev",
+    "popular": true
+  },
+  {
+    "name": "Carbon",
+    "url": "https://carbon.now.sh",
+    "description": "ساخت تصاویر زیبا و قابل اشتراک‌گذاری از قطعه‌کدها",
+    "category": "dev",
+    "popular": false
+  },
+  {
+    "name": "RegExr",
+    "url": "https://regexr.com",
+    "description": "ساخت، تست و آموزش عبارات باقاعده به‌صورت زنده",
+    "category": "dev",
+    "popular": false
+  },
+  {
+    "name": "CloudConvert",
+    "url": "https://cloudconvert.com",
+    "description": "تبدیل آنلاین بیش از ۲۰۰ فرمت فایل صوتی، تصویری و سندی",
+    "category": "converter",
+    "popular": true
+  },
+  {
+    "name": "iLovePDF",
+    "url": "https://www.ilovepdf.com",
+    "description": "ادغام، فشرده‌سازی و ویرایش فایل‌های PDF به‌صورت رایگان",
+    "category": "converter",
+    "popular": true
+  },
+  {
+    "name": "Notion",
+    "url": "https://www.notion.so",
+    "description": "فضای کاری یکپارچه برای یادداشت‌برداری و مدیریت پروژه",
+    "category": "productivity",
+    "popular": true
+  },
+  {
+    "name": "Trello",
+    "url": "https://trello.com",
+    "description": "مدیریت وظایف و پروژه‌ها با تخته‌های بصری کانبان",
+    "category": "productivity",
+    "popular": false
+  }
+]
