@@ -1,0 +1,48 @@
+name: "Suggest a new tool"
+description: "Propose a new tool to be added to the GraTools directory."
+title: "[New Tool]: "
+labels:
+  - "new-tool"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a tool for GraTools.
+        Please fill out the fields below as accurately as possible.
+        Once submitted, this issue will be automatically processed and the tool
+        will be added to `sites.json` by our GitHub Action.
+
+  - type: input
+    id: tool-name
+    attributes:
+      label: "Tool Name"
+      description: "The display name of the tool."
+      placeholder: "e.g. RemoveBG"
+    validations:
+      required: true
+
+  - type: input
+    id: tool-url
+    attributes:
+      label: "Website URL"
+      description: "The full URL of the tool, including https://"
+      placeholder: "https://example.com"
+    validations:
+      required: true
+
+  - type: textarea
+    id: tool-description
+    attributes:
+      label: "Short Description"
+      description: "A brief, one-sentence description of what the tool does."
+      placeholder: "e.g. Automatically removes image backgrounds using AI."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: "Confirmation"
+      options:
+        - label: "I confirm this tool is free to use (at least with a free tier) and the link is safe."
+          required: true
