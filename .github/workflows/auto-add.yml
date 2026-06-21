@@ -1,0 +1,144 @@
+name: Auto Add Tool from Issue
+
+# This workflow triggers whenever an issue is opened or edited.
+# It only proceeds if the issue has the "new-tool" label
+# (automatically applied by the suggest-tool.yml issue form).
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  issues: write
+  contents: write
+
+jobs:
+  add-tool:
+    if: contains(github.event.issue.labels.*.name, 'new-tool')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Parse issue form and update sites.json
+        id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            const body = context.payload.issue.body || "";
+
+            // The issue form (suggest-tool.yml) renders each field as:
+            // ### Field Label
+            //
+            // value
+            //
+            // We extract values by matching the heading text that GitHub
+            // generates from each field's "label".
+            function extractField(label) {
+              const regex = new RegExp(
+                "### " + label + "\\s*\\n\\s*([\\s\\S]*?)(?:\\n###|$)"
+              );
+              const match = body.match(regex);
+              return match ? match[1].trim() : "";
+            }
+
+            const name = extractField("Tool Name");
+            const url = extractField("Website URL");
+            const description = extractField("Short Description");
+
+            if (!name || !url || !description) {
+              core.setFailed("Could not parse required fields from the issue body.");
+              return;
+            }
+
+            // Basic URL validation
+            let validUrl = true;
+            try {
+              new URL(url);
+            } catch (e) {
+              validUrl = false;
+            }
+
+            if (!validUrl) {
+              core.setFailed("The provided URL is not valid.");
+              return;
+            }
+
+            // Read existing sites.json
+            const filePath = "sites.json";
+            let sites = [];
+            if (fs.existsSync(filePath)) {
+              const raw = fs.readFileSync(filePath, "utf8");
+              sites = raw.trim() ? JSON.parse(raw) : [];
+            }
+
+            // Avoid duplicate entries (same URL)
+            const alreadyExists = sites.some(
+              (site) => site.url.toLowerCase() === url.toLowerCase()
+            );
+
+            if (alreadyExists) {
+              core.setOutput("duplicate", "true");
+              return;
+            }
+
+            sites.push({ name, url, description });
+
+            fs.writeFileSync(filePath, JSON.stringify(sites, null, 2) + "\n", "utf8");
+
+            core.setOutput("duplicate", "false");
+            core.setOutput("toolName", name);
+
+      - name: Commit and push changes
+        if: steps.parse.outputs.duplicate == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sites.json
+          git commit -m "chore: add new tool '${{ steps.parse.outputs.toolName }}' (closes #${{ github.event.issue.number }})"
+          git push
+
+      - name: Comment and close issue (success)
+        if: steps.parse.outputs.duplicate == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "Thanks for the suggestion. This tool has been added to `sites.json` and will appear on the site shortly. Closing this issue."
+            });
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: "closed"
+            });
+
+      - name: Comment on duplicate
+        if: steps.parse.outputs.duplicate == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "It looks like this tool's URL already exists in `sites.json`. Closing this issue as a duplicate."
+            });
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: "closed"
+            });
